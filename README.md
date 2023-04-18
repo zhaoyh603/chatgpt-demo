@@ -1,3 +1,8 @@
+[![](https://cloud-upyun.ddiu.site/picture/2023/04/15/xAe0dY.png)](https://v2.chatgpt.ddiu.me)
+
+> We are working on V2 Version! Preview & more info on https://github.com/ddiu8081/chatgpt-demo/discussions/247.
+
+
 # ChatGPT-API Demo
 
 English | [简体中文](./README.zh-CN.md)
@@ -6,11 +11,11 @@ A demo repo based on [OpenAI GPT-3.5 Turbo API.](https://platform.openai.com/doc
 
 **🍿 Live preview**: https://chatgpt.ddiu.me
 
+**🏖️ V2 Version(Beta)**: https://v2.chatgpt.ddiu.me
+
 > ⚠️ Notice: Our API Key limit has been exhausted. So the demo site is not available now.
 
 ![chat-logo](https://cdn.staticaly.com/gh/yzh990918/static@master/chat-logo.webp)
-
-
 
 ## Running Locally
 
@@ -49,9 +54,9 @@ A demo repo based on [OpenAI GPT-3.5 Turbo API.](https://platform.openai.com/doc
 
 
 > #### 🔒 Need website password?
-> 
+>
 > Deploy with the [`SITE_PASSWORD`](#environment-variables)
-> 
+>
 > <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fddiu8081%2Fchatgpt-demo&env=OPENAI_API_KEY&env=SITE_PASSWORD&envDescription=OpenAI%20API%20Key&envLink=https%3A%2F%2Fplatform.openai.com%2Faccount%2Fapi-keys" alt="Deploy with Vercel" target="_blank"><img src="https://vercel.com/button" alt="Deploy with Vercel" height=24 style="vertical-align: middle; margin-right: 4px;"></a>
 
 ![image](https://cdn.staticaly.com/gh/yzh990918/static@master/20230310/image.4wzfb79qt7k0.webp)
@@ -80,14 +85,41 @@ A demo repo based on [OpenAI GPT-3.5 Turbo API.](https://platform.openai.com/doc
 
 
 ### Deploy with Docker
-Before deploying the app, please make sure `.env` is configured normally.
+
+Environment variables refer to the documentation below. [Docker Hub address](https://hub.docker.com/r/ddiu8081/chatgpt-demo).
+
+**Direct run**
+```bash
+docker run --name=chatgpt-demo -e OPENAI_API_KEY=YOUR_OPEN_API_KEY -p 3000:3000 -d ddiu8081/chatgpt-demo:latest
+```
+`-e` define environment variables in the container.
+
+
+**Docker compose**
+```yml
+version: '3'
+
+services:
+  chatgpt-demo:
+    image: ddiu8081/chatgpt-demo:latest
+    container_name: chatgpt-demo
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      - OPENAI_API_KEY=YOUR_OPEN_API_KEY
+      # - HTTPS_PROXY=YOUR_HTTPS_PROXY
+      # - OPENAI_API_BASE_URL=YOUR_OPENAI_API_BASE_URL
+      # - HEAD_SCRIPTS=YOUR_HEAD_SCRIPTS
+      # - SECRET_KEY=YOUR_SECRET_KEY
+      # - SITE_PASSWORD=YOUR_SITE_PASSWORD
+      # - OPENAI_API_MODEL=YOUR_OPENAI_API_MODEL
+```
 
 ```bash
-# build
-docker-compose build .
-# run
-docker-compose up -d
-# stop
+# start
+docker compose up -d
+# down
 docker-compose down
 ```
 
@@ -106,7 +138,7 @@ You can control the website through environment variables.
 | `OPENAI_API_BASE_URL` | Custom base url for OpenAI API. | `https://api.openai.com` |
 | `HEAD_SCRIPTS` | Inject analytics or other scripts before `</head>` of the page | `null` |
 | `SECRET_KEY` | Secret string for the project. Use for generating signatures for API calls | `null` |
-| `SITE_PASSWORD` | Set password for site. If not set, site will be public | `null` |
+| `SITE_PASSWORD` | Set password for site, support multiple password separated by comma. If not set, site will be public | `null` |
 | `OPENAI_API_MODEL` | ID of the model to use. [List models](https://platform.openai.com/docs/api-reference/models/list) | `gpt-3.5-turbo` |
 
 
